@@ -1,0 +1,831 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset=utf8>
+  <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
+ <style>
+    :root {
+      color-scheme: light;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px)
+    }
+
+    html {
+      scroll-padding-top: env(safe-area-inset-top, 0px)
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font: 14px -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff;
+      color: #000
+    }
+
+    img {
+      max-width: 100%
+    }
+
+    [hidden]:not([hidden=until-found i]) {
+      display: none !important
+    }
+  </style>
+<meta http-equiv="Content-Security-Policy" content="connect-src * 'self' data: blob: wss: https:;">
+
+</head>
+
+<body>
+  <title>Tinsel &amp; Pine Brief</title>
+
+  <meta name="claude:viewport-fit-sides" content="cover">
+ 
+<style>
+    /* Layout: single-column prospect brief - pine masthead, numbered sections, tables for data, ledger for contact reasons. */
+    :root {
+      --paper: #fbfaf6;
+      --ink: #1c2420;
+      --muted: #5c6862;
+      --rule: #dcdfd6;
+      --pine: #1f4a3a;
+      --pine-soft: #e6eee9;
+      --brass: #9a6b1f;
+      --berry: #a3322a;
+      --band-bg: #1f4a3a;
+      --band-fg: #f3efe2;
+      --band-accent: #e9c785;
+      --display: "Young Serif", Georgia, "Times New Roman", serif;
+      --body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --paper: #121815;
+        --ink: #e7ebe5;
+        --muted: #9aa69f;
+        --rule: #2c3631;
+        --pine: #7fbfa2;
+        --pine-soft: #1b2722;
+        --brass: #d6a656;
+        --berry: #e2766b;
+        --band-bg: #17362b;
+        --band-fg: #f3efe2;
+        --band-accent: #e9c785;
+        color-scheme: dark;
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --paper: #121815;
+      --ink: #e7ebe5;
+      --muted: #9aa69f;
+      --rule: #2c3631;
+      --pine: #7fbfa2;
+      --pine-soft: #1b2722;
+      --brass: #d6a656;
+      --berry: #e2766b;
+      --band-bg: #17362b;
+      --band-fg: #f3efe2;
+      --band-accent: #e9c785;
+      color-scheme: dark;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding-left: max(16px, env(safe-area-inset-left, 0px));
+      padding-right: max(16px, env(safe-area-inset-right, 0px));
+    }
+
+    .band {
+      background: var(--band-bg);
+      color: var(--band-fg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .band::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .5;
+      background-image: radial-gradient(circle, rgba(255, 255, 255, .55) 1px, transparent 1.7px), radial-gradient(circle, rgba(255, 255, 255, .35) 1px, transparent 1.5px);
+      background-size: 46px 46px, 29px 29px;
+      background-position: 0 0, 13px 17px;
+      animation: snow 30s linear infinite;
+    }
+
+    @keyframes snow {
+      to {
+        background-position: 0 460px, 13px 307px;
+      }
+    }
+
+    .band::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 6px;
+      background: linear-gradient(var(--band-accent), var(--band-accent)) 0 0 / 100% 2px no-repeat, linear-gradient(var(--berry), var(--berry)) 0 4px / 100% 2px no-repeat;
+    }
+
+    .band .wrap {
+      position: relative;
+      z-index: 1;
+    }
+
+    .band .wrap::after {
+      content: "";
+      position: absolute;
+      right: max(16px, env(safe-area-inset-right, 0px));
+      bottom: 10px;
+      width: 96px;
+      height: 116px;
+      opacity: .45;
+      pointer-events: none;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 120'%3E%3Cpath d='M50 16 L71 50 H60 L80 82 H65 L88 112 H12 L35 82 H20 L40 50 H29 Z' fill='none' stroke='%23e9c785' stroke-width='1.6' stroke-linejoin='round'/%3E%3Cpath d='M50 2 l2.4 5 5.4.6-4 3.7 1 5.4-4.8-2.7-4.8 2.7 1-5.4-4-3.7 5.4-.6z' fill='%23e9c785'/%3E%3C/svg%3E") no-repeat center / contain;
+    }
+
+    @media (max-width: 600px) {
+      .band .wrap::after {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .band::before {
+        animation: none;
+      }
+    }
+
+    h2 .n::before {
+      content: "✦ ";
+      color: var(--berry);
+    }
+
+    .band .wrap {
+      padding-block: 40px 32px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .eyebrow {
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--band-accent);
+    }
+
+    h1 {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(2.2rem, 6vw, 3.2rem);
+      line-height: 1.1;
+      margin: 0;
+    }
+
+    .band p {
+      opacity: .9;
+    }
+
+    main .wrap {
+      padding-block: 36px 64px;
+      display: grid;
+      gap: 48px;
+    }
+
+    section {
+      display: grid;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    h2 {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 1.55rem;
+      margin: 0;
+      display: flex;
+      gap: 14px;
+      align-items: baseline;
+      text-wrap: balance;
+    }
+
+    h2 .n {
+      font-family: var(--mono);
+      font-size: .8rem;
+      color: var(--brass);
+      letter-spacing: .06em;
+    }
+
+    h3 {
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--muted);
+      margin: 8px 0 0;
+    }
+
+    p {
+      margin: 0;
+      max-width: 66ch;
+    }
+
+    a {
+      color: var(--pine);
+      text-underline-offset: 3px;
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--brass);
+      outline-offset: 2px;
+    }
+
+    code {
+      font-family: var(--mono);
+      font-size: .86em;
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      margin: 0;
+    }
+
+    .facts div {
+      background: var(--paper);
+      padding: 14px 16px;
+      display: grid;
+      gap: 2px;
+    }
+
+    .facts dt {
+      font-size: .74rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--muted);
+    }
+
+    .facts dd {
+      margin: 0;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .scroll {
+      overflow-x: auto;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: .94rem;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--rule);
+      vertical-align: top;
+    }
+
+    th {
+      font-size: .74rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    td.num {
+      font-family: var(--mono);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    td:first-child {
+      white-space: nowrap;
+    }
+
+    ul.plain {
+      margin: 0;
+      padding-left: 1.1em;
+      display: grid;
+      gap: 8px;
+      max-width: 66ch;
+    }
+
+    .cta {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      font-weight: 600;
+      padding: 10px 16px;
+      border: 1px solid var(--pine);
+      border-radius: 4px;
+      text-decoration: none;
+      justify-self: start;
+    }
+
+    .cta:hover {
+      background: var(--pine-soft);
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+    }
+
+    .flow div {
+      background: var(--pine-soft);
+      padding: 16px 18px;
+      display: grid;
+      gap: 6px;
+      align-content: start;
+      min-width: 0;
+    }
+
+    .flow b {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 1.1rem;
+    }
+
+    .req {
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .req li {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 120px;
+      gap: 4px 20px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--rule);
+      align-items: center;
+    }
+
+    .req .t {
+      font-weight: 600;
+    }
+
+    .req .d {
+      color: var(--muted);
+      font-size: .95rem;
+      max-width: 62ch;
+    }
+
+    .req .txt {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .share {
+      display: grid;
+      gap: 4px;
+      justify-items: end;
+    }
+
+    .share span {
+      font-family: var(--mono);
+      font-size: .85rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .bar {
+      width: 100%;
+      height: 6px;
+      background: var(--rule);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .bar i {
+      display: block;
+      height: 100%;
+      background: var(--pine);
+    }
+
+    .lead {
+      font-family: var(--display);
+      font-size: 1.25rem;
+      line-height: 1.45;
+      max-width: 52ch;
+    }
+
+    .rules {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .rules li {
+      list-style: none;
+      border-top: 2px solid var(--pine);
+      padding-top: 10px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .rules b {
+      font-weight: 700;
+    }
+
+    .rules span {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .say {
+      display: grid;
+      gap: 10px;
+    }
+
+    .say .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+
+    .say .pair>div {
+      background: var(--paper);
+      padding: 12px 14px;
+      display: grid;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .say .lab {
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-weight: 600;
+    }
+
+    .say .yes .lab {
+      color: var(--pine);
+    }
+
+    .say .no .lab {
+      color: var(--berry);
+    }
+
+    .say .no q {
+      color: var(--muted);
+      text-decoration: line-through;
+      text-decoration-color: var(--berry);
+      text-decoration-thickness: 1px;
+    }
+
+    .say .ctx {
+      font-size: .8rem;
+      color: var(--muted);
+      padding: 8px 14px 0;
+      grid-column: 1 / -1;
+      background: var(--paper);
+    }
+
+    @media (max-width: 560px) {
+      .say .pair {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .note {
+      font-size: .82rem;
+      color: var(--muted);
+      border-top: 1px solid var(--rule);
+      padding-top: 16px;
+    }
+
+    @media (max-width: 520px) {
+      .req li {
+        grid-template-columns: 1fr 72px;
+      }
+    }
+  </style>
+
+
+  <script>
+    window.intercomSettings = {
+      api_base: "https://api-iam.intercom.io",
+      app_id: "t81j70m3",
+      messenger_environment: "m9ayvgcuy5",
+    };
+  </script>
+
+
+  <script>
+    // We pre-filled your app ID in the widget URL: 'https://widget.intercom.io/widget/t81j70m3'
+    (function () {var w = window; var ic = w.Intercom; if (typeof ic === "function") {ic('reattach_activator'); ic('update', w.intercomSettings);} else {var d = document; var i = function () {i.c(arguments);}; i.q = []; i.c = function (args) {i.q.push(args);}; w.Intercom = i; var l = function () {var s = d.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://widget.intercom.io/widget/t81j70m3'; var x = d.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);}; if (document.readyState === 'complete') {l();} else if (w.attachEvent) {w.attachEvent('onload', l);} else {w.addEventListener('load', l, false);} } })();
+  </script>
+
+  <header class="band">
+    <div class="wrap">
+      <span class="eyebrow">Prospect brief</span>
+      <h1>Tinsel &amp; Pine</h1>
+      <p>Festive Home Co. · Chicago · since 2014</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+
+      <section>
+        <h2><span class="n">01</span>About</h2>
+        <p>Tinsel &amp; Pine is a direct-to-consumer holiday brand: pre-lit artificial trees, lights, ornaments,
+          personalised gifts and festive decor, sold only through its own website. A small commercial arm, T&amp;P
+          Commercial, supplies hotels and offices.</p>
+        <p>It's Monday 2 November 2026. Every window, deadline and cut-off is calculated from that date, not from today.
+        </p>
+        <p>Black Friday is 27 November, contact volume is already three times a normal week, and the support team can't
+          keep up. Tinsel &amp; Pine wants an AI agent live on chat before peak.</p>
+        <dl class="facts">
+          <div>
+            <dt>Markets</dt>
+            <dd>US · UK · IE · DE</dd>
+          </div>
+          <div>
+            <dt>Catalogue</dt>
+            <dd>27 products</dd>
+          </div>
+        </dl>
+        <p>Many customers bought a tree in 2023-2025 that's still in warranty, so peak brings last year's customers back
+          alongside this year's.</p>
+      </section>
+
+      <section>
+        <h2><span class="n">02</span>Our systems</h2>
+        <ul class="plain">
+          <li><b>Salesforce Service Cloud</b> holds customers, orders, shipments, returns, warranty claims, gift cards,
+            promo codes and cases. Agents work only in Salesforce.</li>
+          <li><b>REST APIs in Salesforce</b> (Apex) for orders and delivery, returns and warranty, pricing, gift cards
+            and promo codes, products, and business invoices. Some read data, others take actions like cancelling an
+            order or starting a return.</li>
+          <li><b>13 help articles</b> (PDF), written by different people over three seasons. We aren't sure they all
+            agree, or that every topic customers ask about is covered.</li>
+          <li><b>Messenger</b> (chat on our website) is where most of our conversations start today. We're open to more
+            channels and would love to see interesting demos.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2><span class="n">03</span>Our data in Salesforce</h2>
+        <p>One Account and one Contact per consumer customer. The Contact's email identifies the customer. Business
+          customers have one Account with 1-3 Contacts.</p>
+        <div class="scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Object</th>
+                <th>Type</th>
+                <th>What it holds</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>Account</code>, <code>Contact</code></td>
+                <td>Standard</td>
+                <td>46 accounts (42 consumers, 4 businesses) and 51 contacts</td>
+              </tr>
+              <tr>
+                <td><code>Product2</code></td>
+                <td>Standard</td>
+                <td>27 products: prices, sizes, lights, plug types, warranty years</td>
+              </tr>
+              <tr>
+                <td><code>Case</code></td>
+                <td>Standard</td>
+                <td>34 past and open customer conversations</td>
+              </tr>
+              <tr>
+                <td><code>Order__c</code>, <code>Order_Line__c</code></td>
+                <td>Custom</td>
+                <td>157 orders and their lines</td>
+              </tr>
+              <tr>
+                <td><code>Shipment__c</code></td>
+                <td>Custom</td>
+                <td>Carrier, tracking, estimated delivery, last scan</td>
+              </tr>
+              <tr>
+                <td><code>Return__c</code></td>
+                <td>Custom</td>
+                <td>Past and new returns</td>
+              </tr>
+              <tr>
+                <td><code>Warranty_Claim__c</code></td>
+                <td>Custom</td>
+                <td>Lights warranty claims</td>
+              </tr>
+              <tr>
+                <td><code>Price_Adjustment__c</code></td>
+                <td>Custom</td>
+                <td>Price-drop refunds, one per order</td>
+              </tr>
+              <tr>
+                <td><code>Gift_Card__c</code>, <code>Promo_Code__c</code></td>
+                <td>Custom</td>
+                <td>Gift cards and promo codes</td>
+              </tr>
+              <tr>
+                <td><code>Site__c</code>, <code>Invoice__c</code></td>
+                <td>Custom</td>
+                <td>Business delivery sites (8) and invoices (5)</td>
+              </tr>
+              <tr>
+                <td><code>TP_Setting__mdt</code>, <code>Shipping_Cutoff__mdt</code></td>
+                <td>Custom metadata</td>
+                <td>Policy settings and Christmas shipping cut-offs</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>If your org already has demo data, the Tinsel &amp; Pine records sit alongside it. The APIs only return
+          Tinsel &amp; Pine records.</p>
+
+      </section>
+
+      <section>
+        <h2><span class="n">04</span>Business hours and handover</h2>
+        <div class="scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Country</th>
+                <th>Hours (local time)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>United States</td>
+                <td class="num">Mon-Fri 08:00-20:00, Sat 09:00-17:00 CT</td>
+              </tr>
+              <tr>
+                <td>United Kingdom</td>
+                <td class="num">Mon-Fri 08:00-18:00 GMT</td>
+              </tr>
+              <tr>
+                <td>Ireland</td>
+                <td class="num">Mon-Fri 08:00-18:00 GMT</td>
+              </tr>
+              <tr>
+                <td>Germany</td>
+                <td class="num">Mon-Fri 08:00-18:00 CET</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="flow">
+          <div><b>During working hours</b><span>Hand the chat to a live agent, with a summary so the customer doesn't
+              have to repeat themselves.</span></div>
+          <div><b>Outside working hours</b><span>Tell the customer when the team is back, then create a Case in
+              Salesforce with the transcript, a summary and the customer's country. We reply by email.</span></div>
+        </div>
+        <p>How the work reaches the right team is up to you. Our order system knows each customer's country.</p>
+        <h3>Always hand over</h3>
+        <ul class="plain">
+          <li>A safety problem: sparking, a burning smell, a melted plug. No troubleshooting first.</li>
+          <li>A customer who is upset, or asks for a person twice.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2><span class="n">05</span>What we need the agent to handle</h2>
+        <p>Our top contact reasons from last December, by share of conversations.</p>
+        <ol class="req">
+          <li><span class="txt"><span class="t">Where is my order?</span><span class="d">Status, carrier and tracking
+                link. Only ever to the person who placed the order.</span></span><span
+              class="share"><span>22%</span><span class="bar"><i style="width:100%"></i></span></span></li>
+          <li><span class="txt"><span class="t">Will it arrive by Christmas?</span><span class="d">Check an order
+                against our cut-offs, or tell a shopper which shipping method gets there in time.</span></span><span
+              class="share"><span>14%</span><span class="bar"><i style="width:64%"></i></span></span></li>
+          <li><span class="txt"><span class="t">Can I return this?</span><span class="d">Our return windows, including
+                the extended holiday window and final-sale rules for personalised items.</span></span><span
+              class="share"><span>10%</span><span class="bar"><i style="width:45%"></i></span></span></li>
+          <li><span class="txt"><span class="t">My parcel is late or lost</span><span class="d">Reassure when it's a
+                little late. Reship or refund when it's really lost under our policy.</span></span><span
+              class="share"><span>9%</span><span class="bar"><i style="width:41%"></i></span></span></li>
+          <li><span class="txt"><span class="t">Start a return</span><span class="d">Create the return in Salesforce and
+                give the customer their label.</span></span><span class="share"><span>8%</span><span class="bar"><i
+                  style="width:36%"></i></span></span></li>
+          <li><span class="txt"><span class="t">My tree's lights stopped working</span><span class="d">Basic fixes
+                first. Most "dead" trees are a loose connector or a fuse. Then open a warranty claim.</span></span><span
+              class="share"><span>8%</span><span class="bar"><i style="width:36%"></i></span></span></li>
+          <li><span class="txt"><span class="t">Change the delivery address</span><span class="d">Often a gift. Only
+                before the order ships, and only for the buyer.</span></span><span class="share"><span>6%</span><span
+                class="bar"><i style="width:27%"></i></span></span></li>
+          <li><span class="txt"><span class="t">Cancel my order</span><span class="d">Cancel what hasn't shipped.
+                Personalised items can't be cancelled once in production.</span></span><span
+              class="share"><span>5%</span><span class="bar"><i style="width:23%"></i></span></span></li>
+          <li><span class="txt"><span class="t">It went on sale after I bought it</span><span class="d">Our price
+                promise refunds the difference within a set window, once per order.</span></span><span
+              class="share"><span>5%</span><span class="bar"><i style="width:23%"></i></span></span></li>
+          <li><span class="txt"><span class="t">Gift card balance or a promo code that won't work</span><span
+                class="d">Look up the balance. For a failed code, explain why.</span></span><span
+              class="share"><span>4%</span><span class="bar"><i style="width:18%"></i></span></span></li>
+          <li><span class="txt"><span class="t">Product questions</span><span class="d">Will this tree fit my ceiling?
+                Which plug do I need in Germany? How do I set up the lights?</span></span><span
+              class="share"><span>4%</span><span class="bar"><i style="width:18%"></i></span></span></li>
+          <li><span class="txt"><span class="t">My personalised item is wrong</span><span class="d">Our mistake: free
+                remake. The customer's typo: final sale, with a goodwill discount on a remake.</span></span><span
+              class="share"><span>3%</span><span class="bar"><i style="width:14%"></i></span></span></li>
+          <li><span class="txt"><span class="t">Business invoices</span><span class="d">T&amp;P Commercial customers
+                asking for an invoice or when it's due.</span></span><span class="share"><span>2%</span><span
+                class="bar"><i style="width:9%"></i></span></span></li>
+        </ol>
+      </section>
+
+      <section>
+        <h2><span class="n">06</span>Our voice</h2>
+        <p class="lead">We sound like the friendliest person at the Christmas market, who also knows exactly where your
+          parcel is.</p>
+        <ul class="rules">
+          <li><b>Warm first, then useful</b><span>Open with a little festive warmth, then get straight to the answer.
+              One festive touch per conversation is plenty.</span></li>
+          <li><b>Clear beats cute</b><span>Dates, prices and deadlines in plain words. A pun never gets in the way of an
+              answer.</span></li>
+          <li><b>Calm in the rush</b><span>A stressed customer gets a straight answer and a next step. No jokes when
+              something is late, broken or unsafe.</span></li>
+          <li><b>Honest about limits</b><span>If we can't do something, say so kindly and offer what we can. Never
+              promise what the policy doesn't allow.</span></li>
+        </ul>
+
+        <h3>How it sounds</h3>
+        <div class="say">
+          <div class="pair">
+            <div class="ctx">Where is my order?</div>
+            <div class="yes"><span class="lab">Say</span><q>Good news, your Glenmore Fir is on its way with UPS and due
+                Thursday. Here's your tracking link.</q></div>
+            <div class="no"><span class="lab">Not</span><q>Ho ho ho! Our elves are working super hard to get your
+                goodies to you!</q></div>
+          </div>
+          <div class="pair">
+            <div class="ctx">Something is wrong</div>
+            <div class="yes"><span class="lab">Say</span><q>I'm sorry your lights have gone out, that's no way to start
+                December. Let's try two quick fixes together.</q></div>
+            <div class="no"><span class="lab">Not</span><q>Unfortunately, as per our policy, you will need to complete
+                troubleshooting steps.</q></div>
+          </div>
+          <div class="pair">
+            <div class="ctx">Safety</div>
+            <div class="yes"><span class="lab">Say</span><q>Please unplug the tree now and don't use it again. I'm
+                passing you to our team straight away.</q></div>
+            <div class="no"><span class="lab">Not</span><q>Oh no! Sounds like your tree needs a little festive TLC!</q>
+            </div>
+          </div>
+          <div class="pair">
+            <div class="ctx">We can't help</div>
+            <div class="yes"><span class="lab">Say</span><q>I can't change the address now it's shipped, but you can
+                redirect it with the carrier. Here's how.</q></div>
+            <div class="no"><span class="lab">Not</span><q>Sorry, that's not possible.</q></div>
+          </div>
+        </div>
+
+        <h3>House rules</h3>
+        <ul class="plain">
+          <li><b>Match the market.</b> American spelling and "package" for the US. British spelling and "parcel" for the
+            UK and Ireland. German customers get German, using "Sie".</li>
+          <li><b>Emoji:</b> at most one per conversation, a 🎄 or ✨ in a greeting or sign-off. Never in an apology or
+            bad news.</li>
+          <li><b>Call products by name.</b> "Your Glenmore Fir", not "your item".</li>
+          <li><b>Skip these:</b> "unfortunately", "as per our policy", "kindly note", and elves or Santa whenever
+            something has gone wrong.</li>
+          <li><b>Sign off</b> a resolved conversation with "Happy decorating from all of us at Tinsel &amp; Pine".</li>
+        </ul>
+      </section>
+
+      <p class="note">Tinsel &amp; Pine is a fictional company created for the Fin Solutions Bootcamp, Nov 2-3 2026. All
+        people, figures and records are invented. Internal to the bootcamp: please don't share outside the program.</p>
+
+    </div>
+  </main>
+
+</body>
+
+</html>
